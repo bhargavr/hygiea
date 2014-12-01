@@ -3,6 +3,8 @@
  */
 package com.sjsu.hygiea.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,11 +32,19 @@ public class FetchUserProfileController {
 	
     public static final String OAUTH_TOKEN = "oauth_token";
     public static final String OAUTH_VERIFIER = "oauth_verifier";
+    
+//    @Autowired
+//    private Environment env;
 
     private FitbitAPIEntityCache entityCache = new FitbitApiEntityCacheMapImpl();
     private FitbitApiCredentialsCache credentialsCache = new FitbitApiCredentialsCacheMapImpl();
     private FitbitApiSubscriptionStorage subscriptionStore = new FitbitApiSubscriptionStorageInMemoryImpl();
 
+//    private String apiBaseUrl = env.getProperty(ApplicationConstants.apiBaseUrl);
+//    private String fitbitSiteBaseUrl = env.getProperty(ApplicationConstants.fitbitSiteBaseUrl);
+//    private String clientConsumerKey = env.getProperty(ApplicationConstants.clientConsumerKey);
+//    private String clientSecret = env.getProperty(ApplicationConstants.clientSecret);
+    
     private String apiBaseUrl = ApplicationConstants.apiBaseUrl;
     private String fitbitSiteBaseUrl = ApplicationConstants.fitbitSiteBaseUrl;
     private String clientConsumerKey = ApplicationConstants.clientConsumerKey;
