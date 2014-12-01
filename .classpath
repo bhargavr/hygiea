@@ -31,6 +31,26 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.6/380ef5226de2c85ff3b38cbfefeea881c5fce09d/mysql-connector-java-5.1.6.jar" exported="true">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.0.3.RELEASE/829b5bd62da37ccb8cfd5eb0fd931b926e6cfd4d/spring-jdbc-4.0.3.RELEASE-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.0.3.RELEASE/5c86b94f15523b3b125c35861aeb4ca85897231a/spring-jdbc-4.0.3.RELEASE.jar" exported="true">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.0.3.RELEASE/1f59d2f924ae718f20441d62336e5e404ef9a226/spring-tx-4.0.3.RELEASE-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.0.3.RELEASE/83dfa294b89feda22caba2842cdc32729554dd86/spring-tx-4.0.3.RELEASE.jar" exported="true">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/a00123f261762a7c5e0ec916a2c7c8298d29c400/javax.inject-1-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar" exported="true">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.1.9.RELEASE/31805660554323f0f468463ecf4a52e36ce2b11d/spring-boot-starter-tomcat-1.1.9.RELEASE-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.1.9.RELEASE/bda2651c1706b59d51f3cf00be24add6098b255c/spring-boot-starter-tomcat-1.1.9.RELEASE.jar" exported="true">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -166,11 +186,6 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.0.8.RELEASE/8e99fec889d9c7562daf2165a69df75baef9dbca/spring-beans-4.0.8.RELEASE-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.0.8.RELEASE/39d7f765586816fbfeb622a185865291527eb5d5/spring-beans-4.0.8.RELEASE.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.0.8.RELEASE/e84310ac47fd542d8f3aedf01c900b2c6b9153f0/spring-context-4.0.8.RELEASE-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.0.8.RELEASE/1a2e43d0e5bac4f4c3755ba74f66a3c270d41e26/spring-context-4.0.8.RELEASE.jar" exported="true">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -217,6 +232,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.2/502e1c764542fe747896c1dc04f023acfe0e5cbc/logback-core-1.1.2-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.2/2d23694879c2c12f125dac5076bdfd5d771cc4cb/logback-core-1.1.2.jar" exported="true">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/28bb0405fddaf04f15058fbfbe01fe2780d7d3b6/commons-logging-1.1.3-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f/commons-logging-1.1.3.jar" exported="true">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.0.8.RELEASE/8e99fec889d9c7562daf2165a69df75baef9dbca/spring-beans-4.0.8.RELEASE-sources.jar" kind="lib" path="/home/bhargav/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.0.8.RELEASE/39d7f765586816fbfeb622a185865291527eb5d5/spring-beans-4.0.8.RELEASE.jar" exported="true">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>

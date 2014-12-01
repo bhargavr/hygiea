@@ -41,6 +41,10 @@ dependencies {
     compile "org.json:json:20090211"
     compile "joda-time:joda-time:2.1"
     compile "commons-lang:commons-lang:2.6"
+    compile "mysql:mysql-connector-java:5.1.6"
+    compile "org.springframework:spring-jdbc:4.0.3.RELEASE"
+	compile "org.springframework:spring-tx:4.0.3.RELEASE"
+	compile "javax.inject:javax.inject:1"
 }
 
 eclipse {
