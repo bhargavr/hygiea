@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sjsu.hygiea.web;
+package com.sjsu.hygiea.rest;
 
 import java.util.concurrent.atomic.AtomicLong;
 

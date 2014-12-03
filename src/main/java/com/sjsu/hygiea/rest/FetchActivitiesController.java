@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.sjsu.hygiea.web;
+package com.sjsu.hygiea.rest;
+
+import java.util.Date;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,8 @@ import com.fitbit.api.client.FitbitApiSubscriptionStorage;
 import com.fitbit.api.client.FitbitApiSubscriptionStorageInMemoryImpl;
 import com.fitbit.api.client.LocalUserDetail;
 import com.fitbit.api.client.service.FitbitAPIClientService;
-import com.fitbit.api.common.model.achievement.Achievements;
+import com.fitbit.api.common.model.activities.Activities;
+import com.fitbit.api.common.service.FitbitApiService;
 import com.fitbit.api.model.APIResourceCredentials;
 import com.fitbit.api.model.FitbitUser;
 import com.sjsu.hygiea.constants.ApplicationConstants;
@@ -30,7 +33,7 @@ import com.sjsu.hygiea.constants.ApplicationConstants;
  *
  */
 @RestController
-public class FetchAchievementsController {
+public class FetchActivitiesController {
 	
     public static final String OAUTH_TOKEN = "oauth_token";
     public static final String OAUTH_VERIFIER = "oauth_verifier";
@@ -52,9 +55,10 @@ public class FetchAchievementsController {
     private String clientConsumerKey = ApplicationConstants.clientConsumerKey;
     private String clientSecret = ApplicationConstants.clientSecret;
     
-    @RequestMapping("/fetchAchievements")
-    public Achievements fetchAchievements(@RequestParam(value="oauth_token", defaultValue="World") String oauth_token,
-    		@RequestParam(value="oauth_verifier", defaultValue="World") String oauth_verifier) {
+    @RequestMapping("/fetchActivities")
+    public Activities fetchActivities(@RequestParam(value="oauth_token", defaultValue="World") String oauth_token,
+    		@RequestParam(value="oauth_verifier", defaultValue="World") String oauth_verifier,
+    		@RequestParam(value="dateStr", defaultValue="2014-06-01") String dateStr) {
     	
         FitbitAPIClientService<FitbitApiClientAgent> apiClientService = new FitbitAPIClientService<FitbitApiClientAgent>(
                 new FitbitApiClientAgent(apiBaseUrl, fitbitSiteBaseUrl, credentialsCache),
@@ -69,23 +73,24 @@ public class FetchAchievementsController {
         String tempTokenVerifier = oauth_verifier;
         LocalUserDetail localUser = new LocalUserDetail("-");
         
-        Achievements achievementsInfo = null;
+        Activities activityInfo = null;
 
         APIResourceCredentials arc = new APIResourceCredentials("-", null, null);
         arc.setAccessToken(tempTokenReceived);
         arc.setAccessTokenSecret(tempTokenVerifier);
         apiClientService.saveResourceCredentials(localUser, arc);
         apiClientService.getClient().getCredentialsCache().saveResourceCredentials(localUser, arc);
+        LocalDate date = FitbitApiService.getValidLocalDateOrNull(dateStr);
 
         try {
-        	achievementsInfo = apiClientService.getClient().getAchievements(localUser, FitbitUser.CURRENT_AUTHORIZED_USER);
+        	activityInfo = apiClientService.getClient().getActivities(localUser, FitbitUser.CURRENT_AUTHORIZED_USER, date);
 			
 		} catch (FitbitAPIException e) {
 			e.printStackTrace();
 		}
     	
     	
-        return achievementsInfo;
+        return activityInfo;
     }
 
 }

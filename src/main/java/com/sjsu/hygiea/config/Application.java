@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = "com.sjsu.hygiea", excludeFilters = { @Filter(Configuration.class) })
+@ComponentScan(basePackages = "com.sjsu.hygiea")
 @EnableAutoConfiguration
 @EnableTransactionManagement
 //@PropertySource("classpath:application.properties")

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sjsu.hygiea.web;
+package com.sjsu.hygiea.rest;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;

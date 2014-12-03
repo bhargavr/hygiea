@@ -1,11 +1,10 @@
 /**
  * 
  */
-package com.sjsu.hygiea.web;
+package com.sjsu.hygiea.rest;
 
-import java.util.Date;
+import javax.inject.Inject;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +21,19 @@ import com.fitbit.api.client.FitbitApiSubscriptionStorage;
 import com.fitbit.api.client.FitbitApiSubscriptionStorageInMemoryImpl;
 import com.fitbit.api.client.LocalUserDetail;
 import com.fitbit.api.client.service.FitbitAPIClientService;
-import com.fitbit.api.common.model.activities.Activities;
-import com.fitbit.api.common.service.FitbitApiService;
+import com.fitbit.api.common.model.user.UserInfo;
 import com.fitbit.api.model.APIResourceCredentials;
-import com.fitbit.api.model.FitbitUser;
 import com.sjsu.hygiea.constants.ApplicationConstants;
+import com.sjsu.hygiea.dao.AccountDao;
+import com.sjsu.hygiea.dto.Account;
+import com.sjsu.hygiea.exception.UsernameAlreadyInUseException;
 
 /**
  * @author bhargav
  *
  */
 @RestController
-public class FetchActivitiesController {
+public class FetchUserProfileController {
 	
     public static final String OAUTH_TOKEN = "oauth_token";
     public static final String OAUTH_VERIFIER = "oauth_verifier";
@@ -55,10 +55,15 @@ public class FetchActivitiesController {
     private String clientConsumerKey = ApplicationConstants.clientConsumerKey;
     private String clientSecret = ApplicationConstants.clientSecret;
     
-    @RequestMapping("/fetchActivities")
-    public Activities fetchActivities(@RequestParam(value="oauth_token", defaultValue="World") String oauth_token,
-    		@RequestParam(value="oauth_verifier", defaultValue="World") String oauth_verifier,
-    		@RequestParam(value="dateStr", defaultValue="2014-06-01") String dateStr) {
+	private final AccountDao accountDao;
+
+	@Inject
+	public FetchUserProfileController(AccountDao accountDao) {
+		this.accountDao = accountDao;
+	}
+    
+    @RequestMapping("/fetchProfile")
+    public UserInfo fetchProfile(@RequestParam(value="oauth_token", defaultValue="World") String oauth_token,@RequestParam(value="oauth_verifier", defaultValue="World") String oauth_verifier ) {
     	
         FitbitAPIClientService<FitbitApiClientAgent> apiClientService = new FitbitAPIClientService<FitbitApiClientAgent>(
                 new FitbitApiClientAgent(apiBaseUrl, fitbitSiteBaseUrl, credentialsCache),
@@ -73,24 +78,31 @@ public class FetchActivitiesController {
         String tempTokenVerifier = oauth_verifier;
         LocalUserDetail localUser = new LocalUserDetail("-");
         
-        Activities activityInfo = null;
+        UserInfo userInfo = null;
 
         APIResourceCredentials arc = new APIResourceCredentials("-", null, null);
         arc.setAccessToken(tempTokenReceived);
         arc.setAccessTokenSecret(tempTokenVerifier);
         apiClientService.saveResourceCredentials(localUser, arc);
         apiClientService.getClient().getCredentialsCache().saveResourceCredentials(localUser, arc);
-        LocalDate date = FitbitApiService.getValidLocalDateOrNull(dateStr);
 
         try {
-        	activityInfo = apiClientService.getClient().getActivities(localUser, FitbitUser.CURRENT_AUTHORIZED_USER, date);
+			userInfo = apiClientService.getClient().getUserInfo(localUser);
+			
+			Account user = new Account(userInfo.getDisplayName(), userInfo.getDisplayName(), userInfo.getDisplayName(), userInfo.getEncodedId(), "", "");
+			
+			try {
+				accountDao.createAccount(user);
+			} catch (UsernameAlreadyInUseException e) {
+				e.printStackTrace();
+			}
 			
 		} catch (FitbitAPIException e) {
 			e.printStackTrace();
 		}
     	
     	
-        return activityInfo;
+        return userInfo;
     }
 
 }
