@@ -34,10 +34,11 @@ public class CommunityRewardsDao
 	{
 		try
 		{
-			jdbcTemplate.update(
-					"insert into hyg_communityrewards (retailer, name, description, clusterid, max, min) values (?, ?, ?, ?, ?, ?)",
-					reward.getRetailer(), reward.getName(), reward.getDescription(), reward.getClusterid(), reward.getMax(),
-					reward.getMin());
+			jdbcTemplate
+					.update(
+							"insert into hyg_communityrewards (retailer, name, description, clusterid, max, min, points) values (?, ?, ?, ?, ?, ?, ?)",
+							reward.getRetailer(), reward.getName(), reward.getDescription(), reward.getClusterid(), reward.getMax(),
+							reward.getMin(), reward.getPoints());
 		}
 		catch (final DuplicateKeyException e)
 		{
@@ -54,7 +55,7 @@ public class CommunityRewardsDao
 					public CommunityRewards mapRow(final ResultSet rs, final int rowNum) throws SQLException
 					{
 						return new CommunityRewards(rs.getString("retailer"), rs.getString("name"), rs.getString("description"), rs
-								.getString("clusterid"), rs.getString("min"), rs.getString("max"));
+								.getString("clusterid"), rs.getString("min"), rs.getString("max"), rs.getString("points"));
 					}
 				}, retailer, name);
 	}

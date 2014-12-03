@@ -35,9 +35,11 @@ public class PersonalRewardsDao
 	{
 		try
 		{
-			jdbcTemplate.update(
-					"insert into hyg_personalrewards (retailer, name, description, percentage_threshold) values (?, ?, ?, ?)",
-					reward.getRetailer(), reward.getName(), reward.getDescription(), reward.getPercentageThreshold());
+			jdbcTemplate
+					.update(
+							"insert into hyg_personalrewards (retailer, name, description, percentage_threshold, points) values (?, ?, ?, ?, ?)",
+							reward.getRetailer(), reward.getName(), reward.getDescription(), reward.getPercentageThreshold(),
+							reward.getPoints());
 		}
 		catch (final DuplicateKeyException e)
 		{
@@ -54,7 +56,7 @@ public class PersonalRewardsDao
 					public PersonalRewards mapRow(final ResultSet rs, final int rowNum) throws SQLException
 					{
 						return new PersonalRewards(rs.getString("retailer"), rs.getString("name"), rs.getString("description"), rs
-								.getString("percentage_threshold"));
+								.getString("percentage_threshold"), rs.getString("points"));
 					}
 				}, retailer, name);
 	}

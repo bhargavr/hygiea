@@ -10,12 +10,16 @@ public class PersonalRewards
 
 	private final String percentageThreshold;
 
-	public PersonalRewards(final String retailer, final String name, final String description, final String percentageThreshold)
+	private final String points;
+
+	public PersonalRewards(final String retailer, final String name, final String description, final String percentageThreshold,
+			final String points)
 	{
 		this.retailer = retailer;
 		this.name = name;
 		this.description = description;
 		this.percentageThreshold = percentageThreshold;
+		this.points = points;
 	}
 
 	/**
@@ -48,6 +52,14 @@ public class PersonalRewards
 	public String getPercentageThreshold()
 	{
 		return percentageThreshold;
+	}
+
+	/**
+	 * @return the percentageThreshold
+	 */
+	public String getPoints()
+	{
+		return points;
 	}
 
 }

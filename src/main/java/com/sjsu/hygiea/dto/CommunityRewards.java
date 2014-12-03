@@ -14,8 +14,10 @@ public class CommunityRewards
 
 	private final String max;
 
+	private final String points;
+
 	public CommunityRewards(final String retailer, final String name, final String description, final String clusterid,
-			final String min, final String max)
+			final String min, final String max, final String points)
 	{
 		this.retailer = retailer;
 		this.name = name;
@@ -23,6 +25,7 @@ public class CommunityRewards
 		this.clusterid = clusterid;
 		this.min = min;
 		this.max = max;
+		this.points = points;
 	}
 
 	/**
@@ -71,5 +74,13 @@ public class CommunityRewards
 	public String getMax()
 	{
 		return max;
+	}
+
+	/**
+	 * @return the points
+	 */
+	public String getPoints()
+	{
+		return points;
 	}
 }
