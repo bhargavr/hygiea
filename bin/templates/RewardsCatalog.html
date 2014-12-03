@@ -21,40 +21,21 @@
     <script src='resources/js/bootstrap.js' type="text/javascript"></script>
    
   <script>
-  	$(document).ready(function(){
-	  $.ajax({
-          url : '/getRewards',
-          success : function(data) {
-        	  alert(JSON.stringify(data));
-          }
+  $(document).ready(function(){
+      $.ajax({
+
+          url:"/fetchClusters",
+          type:"GET", 
+          contentType: "application/json; charset=utf-8",
+          dataType: "text",
+          cache: false,    //This will force requested pages not to be cached by the browser  
+          processData:false, //To avoid making query String instead of JSON
+          success: function(data){
+				
+      }
       });
-	  
- 	 }
+    });
     
-    function createReward(){
-    	var reward = {};
-    	reward["sku"] = $("#rewardsku").val();
-    	reward["name"] = $("#rewardname").val();
-    	reward["points"] = $("#rewardpoints").val();
-    	reward["path"] = $("#rewardpath").val();
-    	reward["retailer"] = $("#rewardretailer").val();
-    	reward["expiration"] = $("#rewardexpiration").val();
-    	alert(JSON.stringify(reward));
-    	var rewardstring = JSON.stringify(reward);
-    	
-    	$.ajax({
-            url:"/createNewReward",
-            type:"POST", 
-            contentType: "application/json; charset=utf-8",
-            dataType: "text",
-            data: rewardstring, //Stringified Json Object
-            cache: false,    //This will force requested pages not to be cached by the browser  
-            processData:false, //To avoid making query String instead of JSON
-            success: function(data){
-            	alert("Success");
-        	}
-        });
-    }
   
   </script>
   </head>
