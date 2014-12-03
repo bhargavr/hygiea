@@ -42,9 +42,8 @@ public class RewardDao
 	public void createReward(final Reward reward)
 	{
 			jdbcTemplate
-					.update(
-							"insert into hyg_retailrewards (sku, name, points,path,retailer,expiration) values (?,?,?,?,?,?)",
-							reward.getSku(),reward.getName(),reward.getPoints(),reward.getPath());
+					.update("insert into hyg_retailrewards (sku, name, points,path,retailer,expiration) values (?,?,?,?,?,?)",
+							reward.getSku(),reward.getName(),reward.getPoints(),reward.getPath(),reward.getRetailer(),reward.getExpiration());
 		
 	}
 

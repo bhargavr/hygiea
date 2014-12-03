@@ -5,12 +5,16 @@ package com.sjsu.hygiea.rest;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.fitbit.api.FitbitAPIException;
 import com.fitbit.api.client.FitbitAPIEntityCache;
@@ -34,9 +38,6 @@ import com.sjsu.hygiea.constants.ApplicationConstants;
  */
 @RestController
 public class FetchActivitiesController {
-	
-    public static final String OAUTH_TOKEN = "oauth_token";
-    public static final String OAUTH_VERIFIER = "oauth_verifier";
     
 //    @Autowired
 //    private Environment env;
@@ -68,6 +69,12 @@ public class FetchActivitiesController {
                 entityCache,
                 subscriptionStore
         );
+        
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpSession session= attr.getRequest().getSession(true);
+//        
+//        String tempTokenReceived = (String) session.getAttribute(ApplicationConstants.OAUTH_TOKEN);
+//        String tempTokenVerifier = (String) session.getAttribute(ApplicationConstants.OAUTH_VERIFIER);
         
         String tempTokenReceived = oauth_token;
         String tempTokenVerifier = oauth_verifier;

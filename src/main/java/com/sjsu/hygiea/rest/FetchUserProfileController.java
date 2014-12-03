@@ -4,10 +4,13 @@
 package com.sjsu.hygiea.rest;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.fitbit.api.FitbitAPIException;
 import com.fitbit.api.client.FitbitAPIEntityCache;
@@ -21,6 +24,7 @@ import com.fitbit.api.client.LocalUserDetail;
 import com.fitbit.api.client.service.FitbitAPIClientService;
 import com.fitbit.api.common.model.user.UserInfo;
 import com.fitbit.api.model.APIResourceCredentials;
+import com.sjsu.hygiea.config.FitbitRequestContext;
 import com.sjsu.hygiea.constants.ApplicationConstants;
 import com.sjsu.hygiea.dao.AccountDao;
 import com.sjsu.hygiea.dto.Account;
@@ -74,9 +78,19 @@ public class FetchUserProfileController
 				new FitbitApiClientAgent(apiBaseUrl, fitbitSiteBaseUrl, credentialsCache), clientConsumerKey, clientSecret,
 				credentialsCache, entityCache, subscriptionStore);
 
-		final String tempTokenReceived = oauth_token;
-		final String tempTokenVerifier = oauth_verifier;
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		HttpSession session= attr.getRequest().getSession(true);
+      
+		String tempTokenReceived = (String) session.getAttribute(ApplicationConstants.OAUTH_TOKEN);
+		String tempTokenVerifier = (String) session.getAttribute(ApplicationConstants.OAUTH_VERIFIER);
+		FitbitRequestContext context = (FitbitRequestContext) session.getAttribute("FitbitRequestContext");
+		
+//		final FitbitAPIClientService<FitbitApiClientAgent> apiClientService = context.getApiClientService();
+		
+//		final String tempTokenReceived = oauth_token;
+//		final String tempTokenVerifier = oauth_verifier;
 		final LocalUserDetail localUser = new LocalUserDetail("-");
+//		final LocalUserDetail localUser = context.getOurUser();
 
 		UserInfo userInfo = null;
 
@@ -90,17 +104,17 @@ public class FetchUserProfileController
 		{
 			userInfo = apiClientService.getClient().getUserInfo(localUser);
 
-			final Account user = new Account(userInfo.getDisplayName(), userInfo.getDisplayName(), userInfo.getDisplayName(),
-					userInfo.getEncodedId(), "", "", "", "", "", "");
-
-			try
-			{
-				accountDao.createAccount(user);
-			}
-			catch (final UsernameAlreadyInUseException e)
-			{
-				e.printStackTrace();
-			}
+//			final Account user = new Account(userInfo.getDisplayName(), userInfo.getDisplayName(), userInfo.getDisplayName(),
+//					userInfo.getEncodedId(), "", "", "", "", "", "");
+//
+//			try
+//			{
+//				accountDao.createAccount(user);
+//			}
+//			catch (final UsernameAlreadyInUseException e)
+//			{
+//				e.printStackTrace();
+//			}
 
 		}
 		catch (final FitbitAPIException e)

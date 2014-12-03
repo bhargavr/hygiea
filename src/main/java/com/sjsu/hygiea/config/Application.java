@@ -7,17 +7,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.sjsu.hygiea.scheduler.DailyRewardsTask;
 //import org.springframework.context.annotation.PropertySource;
 //import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
@@ -42,9 +37,12 @@ public class Application {
 		
 		DriverManagerDataSource mysqldataSource = new DriverManagerDataSource();
 	    mysqldataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/hygiea?useConfigs=maxPerformance&characterEncoding=utf8");
-	    mysqldataSource.setUsername("hygiea_u");
-	    mysqldataSource.setPassword("hygiea_p@$sw0rD");
+//	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/hygiea?useConfigs=maxPerformance&characterEncoding=utf8");
+	    mysqldataSource.setUrl("jdbc:mysql://localhost:8889/clusterinformation");
+//	    mysqldataSource.setUsername("hygiea_u");
+//	    mysqldataSource.setPassword("hygiea_p@$sw0rD");
+	    mysqldataSource.setUsername("root");
+	    mysqldataSource.setPassword("root");
 	    return mysqldataSource; 
 		
 	}
@@ -59,10 +57,10 @@ public class Application {
 		return new DataSourceTransactionManager(dataSource());
 	}
 	
-	@Bean
-	public DailyRewardsTask startDailyRewards(){
-		return new DailyRewardsTask();
-	}
+//	@Bean
+//	public DailyRewardsTask startDailyRewards(){
+//		return new DailyRewardsTask();
+//	}
 	
 //	@Bean
 //	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
