@@ -50,12 +50,12 @@ public class Reward
 	
 	public String getRetailer()
 	{
-		return path;
+		return retailer;
 	}
 	
 	public String getExpiration()
 	{
-		return path;
+		return expiration;
 	}
 
 }

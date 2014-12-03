@@ -37,9 +37,12 @@ public class Application {
 		
 		DriverManagerDataSource mysqldataSource = new DriverManagerDataSource();
 	    mysqldataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/hygiea?useConfigs=maxPerformance&characterEncoding=utf8");
-	    mysqldataSource.setUsername("hygiea_u");
-	    mysqldataSource.setPassword("hygiea_p@$sw0rD");
+//	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/hygiea?useConfigs=maxPerformance&characterEncoding=utf8");
+	    mysqldataSource.setUrl("jdbc:mysql://localhost:8889/clusterinformation");
+//	    mysqldataSource.setUsername("hygiea_u");
+//	    mysqldataSource.setPassword("hygiea_p@$sw0rD");
+	    mysqldataSource.setUsername("root");
+	    mysqldataSource.setPassword("root");
 	    return mysqldataSource; 
 		
 	}
