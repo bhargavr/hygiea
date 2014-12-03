@@ -1,0 +1,63 @@
+package com.sjsu.hygiea.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.inject.Inject;
+
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sjsu.hygiea.dto.CommunityRewards;
+import com.sjsu.hygiea.exception.UsernameAlreadyInUseException;
+
+
+@Repository
+public class CommunityRewardsDao
+{
+	private final JdbcTemplate jdbcTemplate;
+
+	//	private final PasswordEncoder passwordEncoder;
+
+	@Inject
+	public CommunityRewardsDao(final JdbcTemplate jdbcTemplate)
+	{
+		this.jdbcTemplate = jdbcTemplate;
+		//		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Transactional
+	public void createCommunityRewards(final CommunityRewards reward) throws UsernameAlreadyInUseException
+	{
+		try
+		{
+			jdbcTemplate.update(
+					"insert into hyg_communityrewards (retailer, name, description, clusterid, max, min) values (?, ?, ?, ?, ?, ?)",
+					reward.getRetailer(), reward.getName(), reward.getDescription(), reward.getClusterid(), reward.getMax(),
+					reward.getMin());
+		}
+		catch (final DuplicateKeyException e)
+		{
+			throw new UsernameAlreadyInUseException(reward.getRetailer());
+		}
+	}
+
+	public CommunityRewards findClusterByRetailerName(final String retailer, final String name)
+	{
+		return jdbcTemplate.queryForObject(
+				"select retailer, name, description, clusterid, max, min from hyg_communityrewards where retailer = ? and name = ?",
+				new RowMapper<CommunityRewards>()
+				{
+					public CommunityRewards mapRow(final ResultSet rs, final int rowNum) throws SQLException
+					{
+						return new CommunityRewards(rs.getString("retailer"), rs.getString("name"), rs.getString("description"), rs
+								.getString("clusterid"), rs.getString("min"), rs.getString("max"));
+					}
+				}, retailer, name);
+	}
+
+
+}
