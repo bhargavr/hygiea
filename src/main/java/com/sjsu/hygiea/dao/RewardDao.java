@@ -43,7 +43,7 @@ public class RewardDao
 	{
 			jdbcTemplate
 					.update(
-							"insert into hyg_retailrewards (sku, name, points,path) values (?, ?, ?,?)",
+							"insert into hyg_retailrewards (sku, name, points,path,retailer,expiration) values (?,?,?,?,?,?)",
 							reward.getSku(),reward.getName(),reward.getPoints(),reward.getPath());
 		
 	}
@@ -55,7 +55,8 @@ public class RewardDao
 		List<Map<String, Object>> rewardList = jdbcTemplate.queryForList("select * from hyg_retailrewards");
 		
 		for(Map reward: rewardList){
-			Reward rewardObj = new Reward(reward.get("name").toString(), reward.get("points").toString(), reward.get("sku").toString(), reward.get("path").toString());
+			Reward rewardObj = new Reward(reward.get("name").toString(), reward.get("points").toString(), reward.get("sku").toString(),
+					reward.get("path").toString(),reward.get("retailer").toString(),reward.get("expiration").toString());
 			rewards.add(rewardObj);
 		}
 		
