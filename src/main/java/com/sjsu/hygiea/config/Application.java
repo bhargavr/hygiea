@@ -7,17 +7,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import com.sjsu.hygiea.scheduler.DailyRewardsTask;
 //import org.springframework.context.annotation.PropertySource;
 //import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
@@ -59,10 +54,10 @@ public class Application {
 		return new DataSourceTransactionManager(dataSource());
 	}
 	
-	@Bean
-	public DailyRewardsTask startDailyRewards(){
-		return new DailyRewardsTask();
-	}
+//	@Bean
+//	public DailyRewardsTask startDailyRewards(){
+//		return new DailyRewardsTask();
+//	}
 	
 //	@Bean
 //	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
