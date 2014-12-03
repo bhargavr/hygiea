@@ -27,8 +27,6 @@ import com.fitbit.api.model.APIResourceCredentials;
 import com.sjsu.hygiea.config.FitbitRequestContext;
 import com.sjsu.hygiea.constants.ApplicationConstants;
 import com.sjsu.hygiea.dao.AccountDao;
-import com.sjsu.hygiea.dto.Account;
-import com.sjsu.hygiea.exception.UsernameAlreadyInUseException;
 
 
 //import org.springframework.core.env.Environment;
