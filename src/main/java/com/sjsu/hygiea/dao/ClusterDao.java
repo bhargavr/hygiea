@@ -2,6 +2,9 @@ package com.sjsu.hygiea.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -55,6 +58,22 @@ public class ClusterDao
 								.getString("min"));
 					}
 				}, cluster_id);
+	}
+
+	public List<Cluster> getClusters()
+	{
+		final List<Cluster> clusters = new ArrayList<Cluster>();
+
+		final List<Map<String, Object>> clusterList = jdbcTemplate.queryForList("select * from hyg_cluster");
+
+		for (final Map cluster : clusterList)
+		{
+			final Cluster clusterObj = new Cluster(cluster.get("clusterid").toString(), cluster.get("clusterType").toString(),
+					cluster.get("min").toString(), cluster.get("max").toString());
+			clusters.add(clusterObj);
+		}
+
+		return clusters;
 	}
 
 }

@@ -3,6 +3,24 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
         <title>Rewards Association</title>
+           <script src="resources/js/jquery-1.11.0.js"></script>
+    <script src="resources/js/bootstrap.js"></script>
+        <script>
+        $(document).ready(function(){
+	        $.ajax({
+	
+	            url:"/fetchClusters",
+	            type:"GET", 
+	            contentType: "application/json; charset=utf-8",
+	            dataType: "text",
+	            cache: false,    //This will force requested pages not to be cached by the browser  
+	            processData:false, //To avoid making query String instead of JSON
+	            success: function(data){
+						
+	        		}
+	        });
+        });
+        </script>
     </head>
     <body>
         <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
