@@ -26,7 +26,7 @@ import com.sjsu.hygiea.dto.Reward;
 public class RewardDao
 {
 
-	private final JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
 	//	private final PasswordEncoder passwordEncoder;
 
@@ -50,13 +50,13 @@ public class RewardDao
 
 	public List<Reward> getRewards()
 	{
-		final List<Reward> rewards = new ArrayList<Reward>();
+		List<Reward> rewards = new ArrayList<Reward>();
 
-		final List<Map<String, Object>> rewardList = jdbcTemplate.queryForList("select * from hyg_retailrewards");
+		List<Map<String, Object>> rewardList = jdbcTemplate.queryForList("select * from hyg_retailrewards");
 
-		for (final Map reward : rewardList)
+		for ( Map reward : rewardList)
 		{
-			final Reward rewardObj = new Reward(reward.get("name").toString(), reward.get("points").toString(), reward.get("sku")
+			 Reward rewardObj = new Reward(reward.get("name").toString(), reward.get("points").toString(), reward.get("sku")
 					.toString(), reward.get("path").toString(), reward.get("retailer").toString(), reward.get("expiration").toString());
 			rewards.add(rewardObj);
 		}

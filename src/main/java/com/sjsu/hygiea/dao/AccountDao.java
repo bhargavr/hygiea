@@ -5,7 +5,10 @@ package com.sjsu.hygiea.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sjsu.hygiea.dto.Account;
+import com.sjsu.hygiea.dto.Reward;
 import com.sjsu.hygiea.exception.UsernameAlreadyInUseException;
 
 
@@ -75,5 +79,23 @@ public class AccountDao
 	{
 		return jdbcTemplate.update("update hyg_user set oauthToken = ?, oauthSecret = ? where userName = ?",oauthToken, oauthSecret,userName);
 	}
+	
+	public List<Account> getAllAccounts(String userName)
+	{
+		final List<Map<String, Object>> accountList = jdbcTemplate.queryForList("select * from hyg_user");
+		
+		List<Account> userList = new ArrayList<Account>();
+
+		for (final Map account : accountList)
+		{
+			 Account accountObj = new Account(account.get("userName").toString(), null, account.get("displayName").toString(), (Integer)account.get("user_id"), null,
+						null, null, null, null, null, account.get("wr_d_id").toString());
+			 userList.add(accountObj);
+			}
+		
+	 return userList;
+	 
+	}
+	
 
 }
