@@ -16,18 +16,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //import org.springframework.context.annotation.PropertySource;
 //import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
+
 @Configuration
 @ComponentScan(basePackages = "com.sjsu.hygiea")
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @EnableScheduling
 //@PropertySource("classpath:application.properties")
-public class Application {
+public class Application
+{
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
-    
+	public static void main(final String[] args)
+	{
+		SpringApplication.run(Application.class, args);
+	}
+
 	@Bean
 	public DataSource dataSource() {
 //		EmbeddedDatabaseFactory factory = new EmbeddedDatabaseFactory();
@@ -46,24 +49,26 @@ public class Application {
 	    return mysqldataSource; 
 		
 	}
-    
+
 	@Bean
-	public JdbcTemplate jdbcTemplate() {
+	public JdbcTemplate jdbcTemplate()
+	{
 		return new JdbcTemplate(dataSource());
 	}
-	
+
 	@Bean
-	public PlatformTransactionManager transactionManager() {
+	public PlatformTransactionManager transactionManager()
+	{
 		return new DataSourceTransactionManager(dataSource());
 	}
-	
-//	@Bean
-//	public DailyRewardsTask startDailyRewards(){
-//		return new DailyRewardsTask();
-//	}
-	
-//	@Bean
-//	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
-//		return new PropertySourcesPlaceholderConfigurer();
-//	}
+
+	//	@Bean
+	//	public DailyRewardsTask startDailyRewards(){
+	//		return new DailyRewardsTask();
+	//	}
+
+	//	@Bean
+	//	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
+	//		return new PropertySourcesPlaceholderConfigurer();
+	//	}
 }
