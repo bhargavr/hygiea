@@ -47,7 +47,7 @@ public class RewardDao
 		
 	}
 
-	public List<Reward> getRewards(final String sku)
+	public List<Reward> getAllRewards()
 	{
 		final List<Reward> rewards= new ArrayList<Reward>();
 		
