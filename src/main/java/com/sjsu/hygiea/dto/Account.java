@@ -10,29 +10,31 @@ package com.sjsu.hygiea.dto;
 public class Account
 {
 
-	private final String username;
+	private String username;
 
-	private final String password;
+	private String password;
 
-	private final String displayName;
+	private String displayName;
 
-	private final String user_id;
+	private int user_id;
 
-	private final String oauthToken;
+	private String oauthToken;
 
-	private final String oauthSecret;
+	private String oauthSecret;
 
-	private final String cluster;
+	private String cluster;
 
-	private final String personalReward;
+	private String personalReward;
 
-	private final String communityReward;
+	private String communityReward;
 
-	private final String predicted_avg;
+	private String predicted_avg;
+	
+	private String wr_d_id;
 
-	public Account(final String username, final String password, final String displayName, final String user_id,
-			final String oauthToken, final String oauthSecret, final String cluster, final String personalReward,
-			final String communityReward, final String predicted_avg)
+	public Account( String username,  String password,  String displayName, int user_id,
+			 String oauthToken,  String oauthSecret,  String cluster, String personalReward,
+			 String communityReward, String predicted_avg, String wr_d_id)
 	{
 		this.username = username;
 		this.password = password;
@@ -44,6 +46,7 @@ public class Account
 		this.personalReward = personalReward;
 		this.communityReward = communityReward;
 		this.predicted_avg = predicted_avg;
+		this.wr_d_id = wr_d_id;
 	}
 
 	public String getUsername()
@@ -67,7 +70,7 @@ public class Account
 	/**
 	 * @return the user_id
 	 */
-	public String getUser_id()
+	public int getUser_id()
 	{
 		return user_id;
 	}
@@ -119,6 +122,12 @@ public class Account
 	{
 		return predicted_avg;
 	}
-
+	/**
+	 * @return the user_id
+	 */
+	public String getWr_d_id()
+	{
+		return wr_d_id;
+	}
 
 }

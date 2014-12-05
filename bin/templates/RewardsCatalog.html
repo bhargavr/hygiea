@@ -24,13 +24,18 @@
   $(document).ready(function(){
       $.ajax({
 
+<<<<<<< HEAD
           url:"/getRewards",
+=======
+          url:"/fetchClusters",
+>>>>>>> e5b61e8dc6c466cf85d6f439251feec3b781e51c
           type:"GET", 
           contentType: "application/json; charset=utf-8",
           dataType: "text",
           cache: false,    //This will force requested pages not to be cached by the browser  
           processData:false, //To avoid making query String instead of JSON
           success: function(data){
+<<<<<<< HEAD
         	  
         	  	var obj = $.parseJSON(data);
         	  	
@@ -46,6 +51,10 @@
                    $("#rewardsContainer").append('<div class="col-md-2"><h4>'+name+':'+sku+'</h4> <a href="#"> <img class="img" src="'+path+'" alt=""></img></a><h6>Cost: '+points+'</h6> <h6> Retailer: '+retailer+'</h6> <h6> Exp: '+expiration+'</h6><a class="btn btn-primary" href="#">Buy<span class="glyphicon glyphicon-chevron-right"></span></a></div>');
         	  	}
      	 }
+=======
+				
+      }
+>>>>>>> e5b61e8dc6c466cf85d6f439251feec3b781e51c
       });
     });
     

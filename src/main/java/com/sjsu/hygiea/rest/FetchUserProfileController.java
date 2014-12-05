@@ -6,6 +6,8 @@ package com.sjsu.hygiea.rest;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +29,7 @@ import com.fitbit.api.model.APIResourceCredentials;
 import com.sjsu.hygiea.config.FitbitRequestContext;
 import com.sjsu.hygiea.constants.ApplicationConstants;
 import com.sjsu.hygiea.dao.AccountDao;
+import com.sjsu.hygiea.dto.Account;
 
 
 //import org.springframework.core.env.Environment;
@@ -79,9 +82,12 @@ public class FetchUserProfileController
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpSession session= attr.getRequest().getSession(true);
       
+	      User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      Account actDetails = accountDao.findAccountByUsername(user.getUsername());
+		
 		String tempTokenReceived = (String) session.getAttribute(ApplicationConstants.OAUTH_TOKEN);
 		String tempTokenVerifier = (String) session.getAttribute(ApplicationConstants.OAUTH_VERIFIER);
-		FitbitRequestContext context = (FitbitRequestContext) session.getAttribute("FitbitRequestContext");
+//		FitbitRequestContext context = (FitbitRequestContext) session.getAttribute("FitbitRequestContext");
 		
 //		final FitbitAPIClientService<FitbitApiClientAgent> apiClientService = context.getApiClientService();
 		
@@ -93,26 +99,16 @@ public class FetchUserProfileController
 		UserInfo userInfo = null;
 
 		final APIResourceCredentials arc = new APIResourceCredentials("-", null, null);
-		arc.setAccessToken(tempTokenReceived);
-		arc.setAccessTokenSecret(tempTokenVerifier);
+		arc.setAccessToken(actDetails.getOauthToken());
+		arc.setAccessTokenSecret(actDetails.getOauthSecret());
+//		arc.setAccessToken(tempTokenReceived);
+//		arc.setAccessTokenSecret(tempTokenVerifier);
 		apiClientService.saveResourceCredentials(localUser, arc);
 		apiClientService.getClient().getCredentialsCache().saveResourceCredentials(localUser, arc);
 
 		try
 		{
 			userInfo = apiClientService.getClient().getUserInfo(localUser);
-
-//			final Account user = new Account(userInfo.getDisplayName(), userInfo.getDisplayName(), userInfo.getDisplayName(),
-//					userInfo.getEncodedId(), "", "", "", "", "", "");
-//
-//			try
-//			{
-//				accountDao.createAccount(user);
-//			}
-//			catch (final UsernameAlreadyInUseException e)
-//			{
-//				e.printStackTrace();
-//			}
 
 		}
 		catch (final FitbitAPIException e)

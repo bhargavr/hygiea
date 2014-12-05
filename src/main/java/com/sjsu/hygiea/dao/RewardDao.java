@@ -26,7 +26,7 @@ import com.sjsu.hygiea.dto.Reward;
 public class RewardDao
 {
 
-	private final JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 
 	//	private final PasswordEncoder passwordEncoder;
 
@@ -38,36 +38,38 @@ public class RewardDao
 	}
 
 	@Transactional
-//	public void createAccount(final Account user) throws UsernameAlreadyInUseException
+	//	public void createAccount(final Account user) throws UsernameAlreadyInUseException
 	public void createReward(final Reward reward)
 	{
-			jdbcTemplate
-					.update("insert into hyg_retailrewards (sku, name, points,path,retailer,expiration) values (?,?,?,?,?,?)",
-							reward.getSku(),reward.getName(),reward.getPoints(),reward.getPath(),reward.getRetailer(),reward.getExpiration());
-		
+		jdbcTemplate
+				.update("insert into hyg_retailrewards (sku, name, points,path,retailer,expiration) values (?,?,?,?,?,?)",
+						reward.getSku(), reward.getName(), reward.getPoints(), reward.getPath(), reward.getRetailer(),
+						reward.getExpiration());
+
 	}
 
 	public List<Reward> getAllRewards()
 	{
-		final List<Reward> rewards= new ArrayList<Reward>();
-		
+		List<Reward> rewards = new ArrayList<Reward>();
+
 		List<Map<String, Object>> rewardList = jdbcTemplate.queryForList("select * from hyg_retailrewards");
-		
-		for(Map reward: rewardList){
-			Reward rewardObj = new Reward(reward.get("name").toString(), reward.get("points").toString(), reward.get("sku").toString(),
-					reward.get("path").toString(),reward.get("retailer").toString(),reward.get("expiration").toString());
+
+		for ( Map reward : rewardList)
+		{
+			 Reward rewardObj = new Reward(reward.get("name").toString(), reward.get("points").toString(), reward.get("sku")
+					.toString(), reward.get("path").toString(), reward.get("retailer").toString(), reward.get("expiration").toString());
 			rewards.add(rewardObj);
 		}
-		
-//		jdbcTemplate.queryForList("select * from hyg_retailrewards",
-//				new RowMapper<Reward>()
-//				{
-//					public void mapRow(final ResultSet rs, final int rowNum) throws SQLException
-//					{
-//						rewardList.add(new Reward(rs.getString("sku"),rs.getString("name"),rs.getString("points"),rs.getString("path")));
-//					}
-//				});
-		
+
+		//		jdbcTemplate.queryForList("select * from hyg_retailrewards",
+		//				new RowMapper<Reward>()
+		//				{
+		//					public void mapRow(final ResultSet rs, final int rowNum) throws SQLException
+		//					{
+		//						rewardList.add(new Reward(rs.getString("sku"),rs.getString("name"),rs.getString("points"),rs.getString("path")));
+		//					}
+		//				});
+
 		return rewards;
 	}
 

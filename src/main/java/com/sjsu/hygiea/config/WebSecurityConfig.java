@@ -3,6 +3,9 @@
  */
 package com.sjsu.hygiea.config;
 
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +25,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
+	@Inject
+	private DataSource dataSource;
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web
@@ -34,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/").permitAll()
-//                .antMatchers("/asdf").permitAll()
+                .antMatchers("/RegisterUser").permitAll()
+                .antMatchers("/registerController").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -50,10 +57,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+//        auth
+//            .inMemoryAuthentication()
+//                .withUser("user").password("password").roles("USER");
+    	
+		auth.jdbcAuthentication()
+		.dataSource(dataSource)
+		.usersByUsernameQuery("select userName, password, true from hyg_user where userName = ?")
+		.authoritiesByUsernameQuery("select userName, 'ROLE_USER' from hyg_user where userName = ?");
     }
+    
+//	@Autowired
+//	public void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.jdbcAuthentication()
+//				.dataSource(dataSource)
+//				.usersByUsernameQuery("select userName, password, true from hyg_user where username = ?")
+//				.authoritiesByUsernameQuery("select userName, 'ROLE_USER' from hyg_user where username = ?");
+//	}
     
     @Bean
     public CommonsMultipartResolver getMultipartResolver() {
