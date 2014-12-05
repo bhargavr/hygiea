@@ -4,6 +4,8 @@
 package com.sjsu.hygiea.rest;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -88,71 +90,21 @@ public class NewRewardsController
 			
 			Reward reward = new Reward(rewardobj.getString("name"),rewardobj.getString("points"),rewardobj.getString("sku"),
 					rewardobj.getString("path"),rewardobj.getString("retailer"),rewardobj.getString("expiration"));
-			
-////    	orderobject.remove("storeID");   	
+			  	
 			rewardDao.createReward(reward);
-//////    	int result = odao.insertOrder(storeID,orderobject.toString());
-////    	System.out.println("New Order ID:  "+result);
-////    	String orderID = Integer.toString(result);
-////    	return orderID;
+
 			return "success";
     }
 	
-	@RequestMapping(value = "/getRewards", method = RequestMethod.GET)
-    String getRewards() 
-	{	
-			System.out.println("TRIGGERED GET");
-			return "Success";
-			
-    }
+	@RequestMapping("/getRewards")
+	public List<Reward> getRewards()
+	{
+		List<Reward> rewards= new ArrayList<Reward>();
+		
+		rewards = rewardDao.getAllRewards();
+		
+		return rewards;
+	}
 	
 	
-	
-//	@RequestMapping("/createNewReward")
-//	public UserInfo createReward(@RequestParam(value = "oauth_token", defaultValue = "World") final String oauth_token,
-//			@RequestParam(value = "oauth_verifier", defaultValue = "World") final String oauth_verifier)
-//	{
-//
-//		final FitbitAPIClientService<FitbitApiClientAgent> apiClientService = new FitbitAPIClientService<FitbitApiClientAgent>(
-//				new FitbitApiClientAgent(apiBaseUrl, fitbitSiteBaseUrl, credentialsCache), clientConsumerKey, clientSecret,
-//				credentialsCache, entityCache, subscriptionStore);
-//
-//		final String tempTokenReceived = oauth_token;
-//		final String tempTokenVerifier = oauth_verifier;
-//		final LocalUserDetail localUser = new LocalUserDetail("-");
-//
-//		UserInfo userInfo = null;
-//
-//		final APIResourceCredentials arc = new APIResourceCredentials("-", null, null);
-//		arc.setAccessToken(tempTokenReceived);
-//		arc.setAccessTokenSecret(tempTokenVerifier);
-//		apiClientService.saveResourceCredentials(localUser, arc);
-//		apiClientService.getClient().getCredentialsCache().saveResourceCredentials(localUser, arc);
-//
-//		try
-//		{
-//			userInfo = apiClientService.getClient().getUserInfo(localUser);
-//
-//			final Account user = new Account(userInfo.getDisplayName(), userInfo.getDisplayName(), userInfo.getDisplayName(),
-//					userInfo.getEncodedId(), "", "", "", "", "", "");
-//
-//			try
-//			{
-//				accountDao.createAccount(user);
-//			}
-//			catch (final UsernameAlreadyInUseException e)
-//			{
-//				e.printStackTrace();
-//			}
-//
-//		}
-//		catch (final FitbitAPIException e)
-//		{
-//			e.printStackTrace();
-//		}
-//
-//
-//		return userInfo;
-//	}
-
 }

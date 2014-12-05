@@ -48,7 +48,7 @@ public class RewardDao
 
 	}
 
-	public List<Reward> getRewards()
+	public List<Reward> getAllRewards()
 	{
 		List<Reward> rewards = new ArrayList<Reward>();
 
