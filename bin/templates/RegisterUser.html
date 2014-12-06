@@ -27,7 +27,6 @@
     	user["userName"] = $("#userName").val();
     	user["password"] = $("#password").val();
     	user["displayName"] = $("#displayName").val();
-    	alert(JSON.stringify(user));
     	var userString = JSON.stringify(user);
     	
     	$.ajax({
@@ -81,7 +80,7 @@
 			<div class="form-group">
 			  <label class="col-md-4 control-label" for="userName">User Name</label>  
 			  <div class="col-md-5">
-			  <input id="userName" name="userName" type="text" placeholder="SKU #" class="form-control input-md"></input>
+			  <input id="userName" name="userName" type="text" placeholder="User Name" class="form-control input-md"></input>
 			  </div>
 			</div>
 			

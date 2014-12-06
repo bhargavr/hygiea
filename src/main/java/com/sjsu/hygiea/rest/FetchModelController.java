@@ -38,7 +38,7 @@ public class FetchModelController
 	@RequestMapping("/fetchRewards")
 	public List<Reward> fetchRewards()
 	{
-		final List<Reward> rewards = rewardDao.getRewards();
+		final List<Reward> rewards = rewardDao.getAllRewards();
 
 		return rewards;
 	}
